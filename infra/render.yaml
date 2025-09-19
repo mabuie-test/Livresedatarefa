@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: livresedatarefa-backend
+    env: node
+    repo: REPO_URL_BACKEND
+    branch: main
+    buildCommand: 'cd backend && npm install'
+    startCommand: 'cd backend && npm run start'
+    envVars:
+      - key: MONGO_URI
+        value: <your_mongo_uri>
+      - key: JWT_SECRET
+        value: <secret>
+
+  - type: web
+    name: livresedatarefa-frontend
+    env: static
+    repo: REPO_URL_FRONTEND
+    branch: main
+    buildCommand: 'cd frontend && npm install && npm run build'
+    startCommand: 'cd frontend && npm run preview'
