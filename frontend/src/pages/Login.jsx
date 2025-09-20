@@ -1,6 +1,7 @@
+// frontend/src/pages/Login.jsx
 import React, { useState } from 'react';
 import api from '../lib/api';
-import { saveToken } from '../lib/auth';
+import { saveToken, saveUser } from '../lib/auth';
 import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
@@ -12,8 +13,11 @@ export default function Login() {
     e.preventDefault();
     try {
       const res = await api.post('/api/auth/login', { email, password });
-      saveToken(res.data.token);
-      alert('Login ok');
+      const token = res.data.token;
+      const user = res.data.user || null; // backend deve enviar user object
+      saveToken(token);
+      if (user) saveUser(user);
+      alert('Login bem sucedido');
       nav('/dashboard');
     } catch (err) {
       alert('Erro: ' + (err.response?.data?.error || err.message));
@@ -26,13 +30,18 @@ export default function Login() {
       <form onSubmit={handleLogin}>
         <label className="block mb-2">
           <span className="text-sm">Email</span>
-          <input value={email} onChange={e => setEmail(e.target.value)} type="email" className="mt-1 block w-full border rounded px-3 py-2" />
+          <input value={email} onChange={e => setEmail(e.target.value)} type="email"
+                 className="mt-1 block w-full border rounded px-3 py-2" required />
         </label>
         <label className="block mb-4">
           <span className="text-sm">Password</span>
-          <input value={password} onChange={e => setPassword(e.target.value)} type="password" className="mt-1 block w-full border rounded px-3 py-2" />
+          <input value={password} onChange={e => setPassword(e.target.value)} type="password"
+                 className="mt-1 block w-full border rounded px-3 py-2" required />
         </label>
-        <button className="bg-brand text-white px-4 py-2 rounded">Entrar</button>
+        <div className="flex items-center justify-between">
+          <button className="bg-brand text-white px-4 py-2 rounded">Entrar</button>
+          <a href="/register" className="text-sm text-gray-500 underline">Criar conta</a>
+        </div>
       </form>
     </div>
   );
