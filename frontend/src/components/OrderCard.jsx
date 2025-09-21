@@ -1,3 +1,4 @@
+// frontend/src/components/OrderCard.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -10,9 +11,9 @@ export default function OrderCard({ order }) {
           <div className="font-semibold">{order.serviceType} — {order.academicLevel}</div>
           <div className="text-sm text-gray-600">Páginas: {order.pages} • Total: {order.totalPriceMZN} MZN</div>
         </div>
-        <div className="text-sm">
-          <div className="mb-2">Status: <span className="font-medium">{order.status}</span></div>
-          <Link to={`/dashboard`} className="text-xs text-brand underline">Ver pedido</Link>
+        <div className="text-sm flex flex-col items-end gap-2">
+          <div>Status: <span className="font-medium">{order.status}</span></div>
+          <Link to={`/orders/${order._id}`} className="text-xs text-white bg-brand px-3 py-1 rounded">Ver pedido</Link>
         </div>
       </div>
     </div>
