@@ -5,6 +5,12 @@ const mpesaProofSchema = new Schema({
   url: String,
   filename: String,
   mimeType: String,
+  
+
+// adicione estes campos no orderSchema:
+guestEmail: { type: String, required: false },
+guestPhone: { type: String, required: false },
+
   size: Number,
   uploadedAt: Date,
   uploaderId: { type: Schema.Types.ObjectId, ref: 'User' }
