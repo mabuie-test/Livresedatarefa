@@ -7,6 +7,8 @@ import Dashboard from './pages/Dashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import OrderDetail from './pages/OrderDetail';
+
 
 export default function App() {
   return (
@@ -19,6 +21,9 @@ export default function App() {
           <Route path="/register" element={<Register/>} />
           <Route path="/dashboard" element={<Dashboard/>} />
           <Route path="/admin" element={<AdminDashboard/>} />
+       // ... dentro do <Routes> adicione:
+<Route path="/orders/:id" element={<OrderDetail />} />
+
         </Routes>
       </main>
       <Footer />
