@@ -8,22 +8,6 @@ import AdminDashboard from './pages/AdminDashboard';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import OrderDetail from './pages/OrderDetail';
-// frontend/src/main.jsx (adicione abaixo das imports)
-import { pushLog } from './lib/errorLogger';
-
-// global error handlers
-window.addEventListener('error', (ev) => {
-  try {
-    pushLog({ type: 'uncaught_error', message: ev.message, filename: ev.filename, lineno: ev.lineno, colno: ev.colno });
-  } catch (e) {}
-});
-
-window.addEventListener('unhandledrejection', (ev) => {
-  try {
-    const reason = ev.reason;
-    pushLog({ type: 'unhandled_rejection', message: reason?.message || String(reason), detail: reason });
-  } catch (e) {}
-});
 
 export default function App() {
   return (
