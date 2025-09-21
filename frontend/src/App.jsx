@@ -8,6 +8,8 @@ import AdminDashboard from './pages/AdminDashboard';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import OrderDetail from './pages/OrderDetail';
+import DebugLog from './pages/DebugLog';
+
 
 export default function App() {
   return (
@@ -21,6 +23,10 @@ export default function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/orders/:id" element={<OrderDetail />} />
+
+        <Route path="/debug" element={<DebugLog />} />
+
+        
         </Routes>
       </main>
       <Footer />
