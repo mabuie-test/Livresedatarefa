@@ -9,7 +9,6 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import OrderDetail from './pages/OrderDetail';
 
-
 export default function App() {
   return (
     <div className="min-h-screen flex flex-col">
@@ -17,13 +16,11 @@ export default function App() {
       <main className="flex-1 container mx-auto p-6">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login/>} />
-          <Route path="/register" element={<Register/>} />
-          <Route path="/dashboard" element={<Dashboard/>} />
-          <Route path="/admin" element={<AdminDashboard/>} />
-       // ... dentro do <Routes> adicione:
-<Route path="/orders/:id" element={<OrderDetail />} />
-
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/orders/:id" element={<OrderDetail />} />
         </Routes>
       </main>
       <Footer />
