@@ -2,7 +2,6 @@
   "name": "livresedatarefa-frontend",
   "version": "1.0.0",
   "private": true,
-  "description": "Frontend Vite + React para Livresedatarefa",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -12,17 +11,13 @@
     "axios": "^1.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.9.0"
+    "react-router-dom": "^6.9.0",
+    "framer-motion": "^10.12.6"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.0.0",
-    "autoprefixer": "^10.4.14",
-    "postcss": "^8.4.24",
     "tailwindcss": "^3.4.7",
+    "postcss": "^8.4.24",
+    "autoprefixer": "^10.4.14",
     "vite": "^5.0.0"
-  },
-  "engines": {
-    "node": ">=18"
-  },
-  "license": "MIT"
+  }
 }
