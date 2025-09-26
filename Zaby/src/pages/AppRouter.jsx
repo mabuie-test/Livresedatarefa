@@ -9,12 +9,13 @@ import Dashboard from './Dashboard.jsx';
 import OrderDetail from './OrderDetail.jsx';
 import GuestOrderDetail from './GuestOrderDetail.jsx';
 import AdminDashboard from './AdminDashboard.jsx';
+import NotFound from '../components/NotFound.jsx';
 
 export default function AppRouter(){
   return (
-    <div style={{minHeight:'100%'}}>
+    <div style={{display:'flex', flexDirection:'column', minHeight:'100vh'}}>
       <Header />
-      <main className="container" style={{marginTop:12}}>
+      <main style={{flex:1}}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -23,6 +24,7 @@ export default function AppRouter(){
           <Route path="/orders/:id" element={<OrderDetail />} />
           <Route path="/orders/guest/:reference" element={<GuestOrderDetail />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
       <Footer />
