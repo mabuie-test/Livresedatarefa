@@ -63,76 +63,91 @@ export default function OrderWizard(){
   }
 
   return (
-    <div className="card">
-      <h3>Formulário de Encomenda</h3>
+    <div className="card" style={{padding:16}}>
+      <h3 style={{marginTop:0}}>Formulário de Encomenda</h3>
       {notice && <Notice type={notice.type}>{notice.text}</Notice>}
       <form onSubmit={handle}>
-        <div className="form-row">
-          <label className="small">Serviço</label>
-          <select className="input" value={form.serviceType} onChange={e=>update('serviceType', e.target.value)}>
-            <option value="redacao">Redação</option>
-            <option value="consultoria">Consultoria</option>
-            <option value="projeto-eletronica">Projeto Electrónica/Elétrica</option>
-          </select>
-        </div>
-
-        <div className="form-row">
-          <label className="small">Nível académico</label>
-          <select className="input" value={form.academicLevel} onChange={e=>update('academicLevel', e.target.value)}>
-            <option value="secundario">Secundário</option>
-            <option value="licenciatura">Licenciatura</option>
-            <option value="mestrado">Mestrado</option>
-            <option value="doutoramento">Doutoramento</option>
-          </select>
-        </div>
-
-        <div className="form-row">
-          <label className="small">Páginas</label>
-          <input className="input" type="number" min="1" value={form.pages} onChange={e=>update('pages', Number(e.target.value)||1)} />
-        </div>
-
-        <div className="form-row">
-          <label className="small">Tipo de redação</label>
-          <select className="input" value={form.style} onChange={e=>update('style', e.target.value)}>
-            <option value="argumentacao">Argumentação</option>
-            <option value="persuasao">Persuasão</option>
-            <option value="reflexivo">Reflexivo</option>
-            <option value="normativo">Normativo</option>
-          </select>
-        </div>
-
-        <div className="form-row">
-          <label className="small">Área de pesquisa</label>
-          <input className="input" value={form.area} onChange={e=>update('area', e.target.value)} placeholder="Ex.: Educação, Electrónica..." />
-        </div>
-
-        <div className="form-row">
-          <label className="small">Prazo (dias)</label>
-          <input className="input" type="number" min="1" value={form.urgencyDays} onChange={e=>update('urgencyDays', Number(e.target.value)||1)} />
-        </div>
-
-        {form.serviceType==='projeto-eletronica' && (
+        <div style={{display:'grid',gap:12}}>
           <div className="form-row">
-            <label className="small">Complexidade (electrónica)</label>
-            <select className="input" value={form.electronicsComplexity} onChange={e=>update('electronicsComplexity', e.target.value)}>
-              <option value="basico">Básico</option>
-              <option value="medio">Médio</option>
-              <option value="complexo">Complexo</option>
+            <label className="small">Serviço</label>
+            <select className="input" value={form.serviceType} onChange={e=>update('serviceType', e.target.value)}>
+              <option value="redacao">Redação</option>
+              <option value="consultoria">Consultoria</option>
+              <option value="projeto-eletronica">Projeto Electrónica/Elétrica</option>
             </select>
           </div>
-        )}
 
-        <div style={{display:'grid',gridTemplateColumns:'1fr 320px',gap:12}}>
-          <div>
-            <div className="form-row"><label className="small">Informações adicionais</label><textarea className="input" rows="4" value={form.extraInfo} onChange={e=>update('extraInfo', e.target.value)} /></div>
-            <div className="form-row"><label className="small">Email</label><input className="input" value={form.email} onChange={e=>update('email', e.target.value)} /></div>
-            <div className="form-row"><label className="small">WhatsApp</label><input className="input" value={form.whatsapp} onChange={e=>update('whatsapp', e.target.value)} /></div>
-            <div style={{marginTop:8}}><button className="btn" type="submit" disabled={creating}>{creating? 'A criar...':'Gerar Encomenda & Invoice'}</button></div>
+          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}}>
+            <div className="form-row">
+              <label className="small">Nível académico</label>
+              <select className="input" value={form.academicLevel} onChange={e=>update('academicLevel', e.target.value)}>
+                <option value="secundario">Secundário</option>
+                <option value="licenciatura">Licenciatura</option>
+                <option value="mestrado">Mestrado</option>
+                <option value="doutoramento">Doutoramento</option>
+              </select>
+            </div>
+
+            <div className="form-row">
+              <label className="small">Páginas</label>
+              <input className="input" type="number" min="1" value={form.pages} onChange={e=>update('pages', Number(e.target.value)||1)} />
+            </div>
           </div>
 
-          <div>
-            {estimating ? <div className="card small">A calcular preço...</div> : <PricePreview price={price} />}
+          <div className="form-row">
+            <label className="small">Tipo de redação</label>
+            <select className="input" value={form.style} onChange={e=>update('style', e.target.value)}>
+              <option value="argumentacao">Argumentação</option>
+              <option value="persuasao">Persuasão</option>
+              <option value="reflexivo">Reflexivo</option>
+              <option value="normativo">Normativo</option>
+            </select>
           </div>
+
+          <div className="form-row">
+            <label className="small">Área de pesquisa</label>
+            <input className="input" value={form.area} onChange={e=>update('area', e.target.value)} placeholder="Ex.: Educação, Electrónica..." />
+          </div>
+
+          <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,alignItems:'center'}}>
+            <div className="form-row">
+              <label className="small">Prazo (dias)</label>
+              <input className="input" type="number" min="1" value={form.urgencyDays} onChange={e=>update('urgencyDays', Number(e.target.value)||1)} />
+            </div>
+
+            <div className="form-row">
+              <label className="small">Marcar como urgente</label>
+              <label className="checkbox-inline">
+                <input type="checkbox" checked={form.urgent} onChange={e=>update('urgent', e.target.checked)} />
+                <span className="small">Sobretaxa aplicada se marcado</span>
+              </label>
+            </div>
+          </div>
+
+          {form.serviceType==='projeto-eletronica' && (
+            <div className="form-row">
+              <label className="small">Complexidade (electrónica)</label>
+              <select className="input" value={form.electronicsComplexity} onChange={e=>update('electronicsComplexity', e.target.value)}>
+                <option value="basico">Básico</option>
+                <option value="medio">Médio</option>
+                <option value="complexo">Complexo</option>
+              </select>
+            </div>
+          )}
+
+          <div style={{display:'grid',gridTemplateColumns:'1fr 320px',gap:12}}>
+            <div>
+              <div className="form-row"><label className="small">Informações adicionais</label><textarea className="input" rows="4" value={form.extraInfo} onChange={e=>update('extraInfo', e.target.value)} /></div>
+              <div className="form-row"><label className="small">Email</label><input className="input" value={form.email} onChange={e=>update('email', e.target.value)} /></div>
+              <div className="form-row"><label className="small">WhatsApp</label><input className="input" value={form.whatsapp} onChange={e=>update('whatsapp', e.target.value)} /></div>
+            </div>
+
+            <div>
+              {estimating ? <div className="card small">A calcular preço...</div> : <PricePreview price={price} />}
+              <div style={{marginTop:12}}><button className="btn" type="submit" disabled={creating}>{creating? 'A criar...':'Gerar Encomenda & Invoice'}</button></div>
+            </div>
+          </div>
+
         </div>
       </form>
     </div>
