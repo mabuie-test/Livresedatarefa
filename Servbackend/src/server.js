@@ -2,6 +2,12 @@ require('dotenv').config();
 const app = require('./app');
 const connectDB = require('./config/db');
 const storage = require('./services/storage');
+const filesRouter = require('./routes/files');
+app.use('/api/files', filesRouter);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+
+
 
 const PORT = process.env.PORT || 4000;
 
