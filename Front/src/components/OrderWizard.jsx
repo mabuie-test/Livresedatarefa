@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import {
   Box, SimpleGrid, FormControl, FormLabel, Select, Input,
   NumberInput, NumberInputField, Textarea, Checkbox, Button,
-  Alert, AlertIcon, AlertTitle, AlertDescription, CloseButton, VStack
+  Text, HStack
 } from '@chakra-ui/react';
 import api from '../lib/api.js';
 import PricePreview from './PricePreview.jsx';
@@ -28,7 +28,7 @@ export default function OrderWizard(){
   const [creating, setCreating] = useState(false);
   const debounceRef = useRef(null);
 
-  // local "toast" state: {status: 'success'|'error'|'warning', title, desc}
+  // simple notice: { type: 'success'|'error'|'warning', title, message }
   const [notice, setNotice] = useState(null);
 
   function update(key, value){ setForm(s => ({ ...s, [key]: value })); }
@@ -59,9 +59,8 @@ export default function OrderWizard(){
     return () => clearTimeout(debounceRef.current);
   }, [form.serviceType, form.academicLevel, form.pages, form.style, form.methodology, form.urgencyDays, form.urgent, form.electronicsComplexity]);
 
-  function showNotice(status, title, desc = '') {
-    setNotice({ status, title, desc });
-    // auto-hide after 5s
+  function showNotice(type, title, message = '') {
+    setNotice({ type, title, message });
     setTimeout(() => setNotice(null), 5000);
   }
 
@@ -83,7 +82,6 @@ export default function OrderWizard(){
         res = await api.post('/api/orders', payload);
         const order = res.data.order;
         showNotice('success', `Encomenda criada: ${order.reference}`, 'Verifique o recibo e proceda ao pagamento');
-        // redireciona para detalhe do pedido depois de uma pequena pausa para o usuário ver a mensagem
         setTimeout(() => { window.location.href = `/orders/${order._id}`; }, 800);
       } else {
         res = await api.post('/api/orders/guest', payload);
@@ -97,18 +95,23 @@ export default function OrderWizard(){
     } finally { setCreating(false); }
   }
 
+  const noticeBg = notice ? (notice.type === 'success' ? 'green.50' : notice.type === 'warning' ? 'yellow.50' : 'red.50') : null;
+  const noticeBorder = notice ? (notice.type === 'success' ? 'green.200' : notice.type === 'warning' ? 'yellow.200' : 'red.200') : null;
+  const noticeColor = notice ? (notice.type === 'success' ? 'green.800' : notice.type === 'warning' ? 'yellow.800' : 'red.800') : null;
+
   return (
     <Box bg="white" p={4} borderRadius="md" boxShadow="sm">
       {/* Notice */}
       {notice && (
-        <Alert status={notice.status} mb={4} borderRadius="md">
-          <AlertIcon />
-          <VStack align="start" spacing={0} flex="1">
-            <AlertTitle>{notice.title}</AlertTitle>
-            {notice.desc && <AlertDescription>{notice.desc}</AlertDescription>}
-          </VStack>
-          <CloseButton position="relative" right={-1} top={-1} onClick={() => setNotice(null)} />
-        </Alert>
+        <Box mb={4} p={3} borderRadius="md" bg={noticeBg} borderWidth="1px" borderColor={noticeBorder}>
+          <HStack justify="space-between">
+            <Box>
+              <Text fontWeight="semibold" color={noticeColor}>{notice.title}</Text>
+              {notice.message && <Text fontSize="sm" color={noticeColor}>{notice.message}</Text>}
+            </Box>
+            <Button size="sm" variant="ghost" onClick={() => setNotice(null)}>Fechar</Button>
+          </HStack>
+        </Box>
       )}
 
       <form onSubmit={handleCreate}>
