@@ -71,3 +71,15 @@ body{
   .header{padding:10px;border-radius:8px}
   .btn{padding:7px 10px;font-size:14px}
 }
+/* wrapper to keep footer at bottom */
+.app-root { display:flex; flex-direction:column; min-height:100vh; }
+main { flex:1; }
+
+/* ensure container spacing inside main */
+main .container { padding-top:20px; padding-bottom:40px; }
+
+/* make .card overflow safe on small screens */
+.card { overflow: visible; word-break: break-word; }
+
+/* ensure order list doesn't overflow */
+.order-item { flex-wrap:wrap; gap:8px; }
