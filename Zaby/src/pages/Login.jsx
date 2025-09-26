@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import api from '../lib/api.js';
 import { saveToken } from '../lib/auth.js';
+import { Link } from 'react-router-dom';
 
 export default function Login(){
   const [email,setEmail]=useState('');
@@ -20,7 +21,10 @@ export default function Login(){
         <form onSubmit={submit}>
           <div className="form-row"><label className="small">Email</label><input className="input" value={email} onChange={e=>setEmail(e.target.value)} /></div>
           <div className="form-row"><label className="small">Password</label><input className="input" type="password" value={password} onChange={e=>setPassword(e.target.value)} /></div>
-          <div><button className="btn" type="submit">Entrar</button></div>
+          <div style={{display:'flex',gap:8,alignItems:'center'}}>
+            <button className="btn" type="submit">Entrar</button>
+            <div className="small">Não tens conta? <Link to="/register" className="link">Regista-te</Link></div>
+          </div>
         </form>
       </div>
     </div>
