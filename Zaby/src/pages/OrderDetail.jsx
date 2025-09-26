@@ -6,6 +6,7 @@ import MpesaProofUpload from '../components/MpesaProofUpload.jsx';
 export default function OrderDetail(){
   const { id } = useParams();
   const [order,setOrder]=useState(null);
+
   useEffect(()=>{ async function load(){ try{ const res = await api.get(`/api/orders/${id}`); setOrder(res.data.order); }catch(e){ alert(e.response?.data?.error||e.message);} } load(); },[id]);
 
   if(!order) return <div className="container">Carregando...</div>;
