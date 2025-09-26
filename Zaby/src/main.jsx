@@ -7,7 +7,9 @@ import './index.css';
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-      <AppRouter />
+      <div className="app-root">
+        <AppRouter />
+      </div>
     </BrowserRouter>
   </React.StrictMode>
 );
