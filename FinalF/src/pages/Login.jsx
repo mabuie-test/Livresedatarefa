@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import api from '../lib/api';
 import { saveToken } from '../lib/auth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Login(){
   const [email,setEmail]=useState('');
@@ -33,6 +33,11 @@ export default function Login(){
         </div>
         <button className="btn" type="submit">Entrar</button>
       </form>
+
+      <div style={{marginTop:12, fontSize:14}}>
+        <span>Não tens conta? </span>
+        <Link to="/register" style={{fontWeight:700}}>Regista-te</Link>
+      </div>
     </div>
   );
 }
