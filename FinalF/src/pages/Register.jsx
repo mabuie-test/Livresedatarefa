@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import api from '../lib/api';
 import { saveToken } from '../lib/auth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Register(){
   const [name,setName]=useState('');
@@ -29,6 +29,11 @@ export default function Register(){
         <div className="form-row"><label>Password</label><input className="input" type="password" value={password} onChange={e=>setPassword(e.target.value)} /></div>
         <button className="btn" type="submit">Registar</button>
       </form>
+
+      <div style={{marginTop:12, fontSize:14}}>
+        <span>Já tens conta? </span>
+        <Link to="/login" style={{fontWeight:700}}>Entrar</Link>
+      </div>
     </div>
   );
 }
