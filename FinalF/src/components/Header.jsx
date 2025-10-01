@@ -15,11 +15,26 @@ export default function Header(){
             <div style={{fontSize:12,color:'#fff',opacity:0.9}}>Serviços académicos</div>
           </div>
         </div>
+
         <nav className="nav">
           <Link to="/" className="btn">Home</Link>
-          {user ? <Link to="/dashboard" className="btn">Dashboard</Link> : <Link to="/login" className="btn">Login</Link>}
-          {user?.role === 'admin' && <Link to="/admin" className="btn">Admin</Link>}
-          {user && <button className="btn" onClick={() => { logout(); nav('/login'); }}>Sair</button>}
+
+          {/* Se não está autenticado mostra Login e Registo */}
+          {!user && (
+            <>
+              <Link to="/login" className="btn">Login</Link>
+              <Link to="/register" className="btn">Registo</Link>
+            </>
+          )}
+
+          {/* Se está autenticado mostra Dashboard e Sair */}
+          {user && (
+            <>
+              <Link to="/dashboard" className="btn">Dashboard</Link>
+              {user.role === 'admin' && <Link to="/admin" className="btn">Admin</Link>}
+              <button className="btn" onClick={() => { logout(); nav('/login'); }}>Sair</button>
+            </>
+          )}
         </nav>
       </div>
     </header>
